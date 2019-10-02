@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Heading, Grommet } from 'grommet';
+import { Box, Heading, Grommet } from 'grommet';
 import NavBar from './Components/NavBar';
 
 const theme = {
@@ -14,20 +14,6 @@ const theme = {
         }
     }
 };
-
-// const NavBar = (props: any) => (
-//     <Box
-//         tag="header"
-//         direction="row"
-//         align="center"
-//         justify="between"
-//         background="brand"
-//         pad={{ left: 'medium', right: 'small', vertical: 'small' }}
-//         elevation="medium"
-//         style={{ zIndex: '1' }}
-//         {...props}
-//     />
-// );
 
 const App: React.FC = () => {
     return (
