@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { Box } from 'grommet';
 
 export default class NavBar extends Component {
-    constructor(props: any) {
-        super(props);
-    }
     render() {
         return (
             <Box
