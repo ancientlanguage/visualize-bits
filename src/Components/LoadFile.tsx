@@ -2,7 +2,7 @@ import React, { createRef, useState } from 'react';
 import { Button } from 'grommet';
 import { Upload } from 'grommet-icons';
 
-export default function LoadFile(props: any) {
+export default function LoadFile({ onSelectFile }: any) {
     const inputRef: any = createRef();
     let [file, setFile] = useState({});
 
@@ -10,7 +10,7 @@ export default function LoadFile(props: any) {
         event.stopPropagation();
         event.preventDefault();
         setFile((file = event.target.files[0]));
-        console.log(file);
+        onSelectFile(file);
     };
 
     return (

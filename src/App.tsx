@@ -16,6 +16,10 @@ const theme = {
     }
 };
 
+const onSelectFile = (file : any) => {
+    console.log(file);
+};
+
 const App: React.FC = () => {
     return (
         <Grommet theme={theme} full>
@@ -27,7 +31,7 @@ const App: React.FC = () => {
                 </NavBar>
                 <Box direction="row" flex overflow={{ horizontal: 'hidden' }}>
                     <Box flex align="center" justify="center">
-                        <LoadFile></LoadFile>
+                        <LoadFile onSelectFile={onSelectFile} />
                     </Box>
                 </Box>
             </Box>
