@@ -22,7 +22,7 @@ const onSelectFile = (file : any) => {
     reader.onload = () => {
         console.log(reader.result);
     };
-    reader.readAsBinaryString(file);
+    reader.readAsArrayBuffer(file);
 };
 
 const App: React.FC = () => {
