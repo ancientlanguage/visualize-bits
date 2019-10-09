@@ -18,6 +18,11 @@ const theme = {
 
 const onSelectFile = (file : any) => {
     console.log(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+        console.log(reader.result);
+    };
+    reader.readAsBinaryString(file);
 };
 
 const App: React.FC = () => {
