@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Heading, Grommet } from 'grommet';
 import NavBar from './Components/NavBar';
+import LoadFile from './Components/LoadFile';
 
 const theme = {
     global: {
@@ -26,7 +27,7 @@ const App: React.FC = () => {
                 </NavBar>
                 <Box direction="row" flex overflow={{ horizontal: 'hidden' }}>
                     <Box flex align="center" justify="center">
-                        app body
+                        <LoadFile></LoadFile>
                     </Box>
                 </Box>
             </Box>
