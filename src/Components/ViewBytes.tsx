@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid } from 'react-virtualized';
 
-
 export default function ViewBytes({ bytes }: any) {
     const cellRenderer = ({ columnIndex, rowIndex, style } : any) => {
       if (rowIndex === 0 && columnIndex === 0) {
@@ -15,17 +14,31 @@ export default function ViewBytes({ bytes }: any) {
       }
     };
 
+    const containerStyle = {
+      margin: '4px',
+      display: 'flex',
+    };
+
+    const sideBySideStyle = {
+      margin: '4px',
+    };
+
     return (
-        <div>
-          <Grid
-            columnCount={2}
-            columnWidth={80}
-            height={400}
-            rowCount={bytes.length + 1}
-            rowHeight={22}
-            width={300}
-            cellRenderer={cellRenderer}
-            />
+        <div style={containerStyle}>
+          <div style={sideBySideStyle}>
+            <Grid
+              columnCount={2}
+              columnWidth={80}
+              height={400}
+              rowCount={bytes.length + 1}
+              rowHeight={22}
+              width={300}
+              cellRenderer={cellRenderer}
+              />
+          </div>
+          <div style={sideBySideStyle}>
+            
+          </div>
         </div>
     );
 }

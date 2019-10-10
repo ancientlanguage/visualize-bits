@@ -14,8 +14,15 @@ export default function LoadFile({ onSelectFile }: any) {
     };
 
     const getFileInfo = () => {
+        const flexStyle = { display: 'flex' };
+        const cellMargin = { margin: '8px'};
         if (file) {
-            return (<div><div>{file.name}</div><div>{file.size} bytes</div></div>);
+            return (
+                <div style={flexStyle}>
+                    <div style={cellMargin}>{file.name}</div>
+                    <div style={cellMargin}>{file.size} bytes</div>
+                </div>
+                );
         } else {
             return (<div />);
         }
