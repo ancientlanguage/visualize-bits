@@ -1,10 +1,22 @@
 import React from 'react';
+import { FixedSizeList } from 'react-window';
+
 
 export default function ViewBytes({ bytes }: any) {
-    const listItems = Array.from(bytes).map((byte : any) => (<div>{byte}</div>));
+    const Row = ({ index, style } : any) => (
+      <div style={style}>Byte {index}: {bytes[index]}</div>
+    );
+
     return (
         <div>
-          {listItems}
+          <FixedSizeList
+            height={800}
+            itemCount={bytes.length}
+            itemSize={22}
+            width={300}
+            >
+            {Row}
+          </FixedSizeList>
         </div>
     );
 }
