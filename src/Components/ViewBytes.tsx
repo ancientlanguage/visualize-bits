@@ -2,17 +2,6 @@ import React from 'react';
 import { Grid } from 'react-virtualized';
 import { Chart, BarSeries, ArgumentAxis, ValueAxis, Title } from "@devexpress/dx-react-chart-material-ui";
 
-function Label(props : any) {
-  const { text } = props;
-  const index = Number(text);
-  if (index === 0 || (index + 1) % 32 === 0) {
-    console.log('Label: ' + text);
-    return (<ArgumentAxis.Label {...props} />);
-  } else {
-    return (<></>);
-  }
-};
-
 export default function ViewBytes({ bytes }: any) {
     const cellRenderer = ({ columnIndex, rowIndex, style } : any) => {
       if (rowIndex === 0 && columnIndex === 0) {
@@ -52,6 +41,44 @@ export default function ViewBytes({ bytes }: any) {
         byteCounts[current].count = byteCounts[current].count + 1;
       });
     }
+    const nonZeroByteCounts = byteCounts.filter(byte => byte.count > 0);
+
+    let [showAllBytes, setShowAllBytes] = React.useState(true);
+    const toggleShowAllBytes = () => setShowAllBytes(!showAllBytes);
+
+    const data = showAllBytes ? byteCounts : nonZeroByteCounts;
+
+    const Label = (props : any) => {
+      const { text } = props;
+      const index = Number(text);
+      const showAllLabels =
+        showAllBytes || nonZeroByteCounts.length > 30
+          ? index === 0 || (index + 1) % 32 === 0
+          : true;
+      if (showAllLabels) {
+        return (<ArgumentAxis.Label {...props} />);
+      } else {
+        return (<></>);
+      }
+    };
+    
+    const chart = bytes.length > 0 ? 
+      (<>
+        <div>
+          <button onClick={toggleShowAllBytes}>
+            {showAllBytes ? "Show ocurring byte values" : "Show all byte values"}
+          </button>
+        </div>
+        <div>
+            <Chart data={data}>
+              <Title text={showAllBytes ? "Counts of each byte value" : "Counts of each occurring byte value" } />
+              <ArgumentAxis showTicks={false} labelComponent={Label} />
+              <ValueAxis />
+              <BarSeries valueField="count" argumentField="name" />
+            </Chart>
+        </div>
+      </>)
+      : (<div />);
 
     return (
         <div style={containerStyle}>
@@ -67,12 +94,7 @@ export default function ViewBytes({ bytes }: any) {
               />
           </div>
           <div style={rightStyle}>
-              <Chart data={byteCounts}>
-                <Title text="Counts of each byte value" />
-                <ArgumentAxis showTicks={false} labelComponent={Label} />
-                <ValueAxis />
-                <BarSeries valueField="count" argumentField="name" />
-              </Chart>
+            {chart}
           </div>
         </div>
     );
