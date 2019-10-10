@@ -1,9 +1,9 @@
 import React from 'react';
-import { FixedSizeGrid } from 'react-window';
+import { Grid } from 'react-virtualized';
 
 
 export default function ViewBytes({ bytes }: any) {
-    const Cell = ({ columnIndex, rowIndex, style } : any) => {
+    const cellRenderer = ({ columnIndex, rowIndex, style } : any) => {
       if (rowIndex === 0 && columnIndex === 0) {
         return (<div style={style}><b>Byte</b></div>);
       } else if (rowIndex === 0 && columnIndex === 1) {
@@ -17,16 +17,15 @@ export default function ViewBytes({ bytes }: any) {
 
     return (
         <div>
-          <FixedSizeGrid
+          <Grid
             columnCount={2}
             columnWidth={80}
             height={400}
             rowCount={bytes.length + 1}
             rowHeight={22}
             width={300}
-            >
-            {Cell}
-          </FixedSizeGrid>
+            cellRenderer={cellRenderer}
+            />
         </div>
     );
 }
