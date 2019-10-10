@@ -1,5 +1,17 @@
 import React from 'react';
 import { Grid } from 'react-virtualized';
+import { Chart, SplineSeries, ArgumentAxis, ValueAxis, Title } from "@devexpress/dx-react-chart-material-ui";
+
+function Label(props : any) {
+  const { text } = props;
+  const index = Number(text);
+  if (index === 0 || (index + 1) % 32 === 0) {
+    console.log('Label: ' + text);
+    return (<ArgumentAxis.Label {...props} />);
+  } else {
+    return (<></>);
+  }
+};
 
 export default function ViewBytes({ bytes }: any) {
     const cellRenderer = ({ columnIndex, rowIndex, style } : any) => {
@@ -19,13 +31,31 @@ export default function ViewBytes({ bytes }: any) {
       display: 'flex',
     };
 
-    const sideBySideStyle = {
+    const leftStyle = {
       margin: '4px',
     };
+    const rightStyle = {
+      margin: '4px',
+      width: '1000px',
+    };
+
+    const byteCounts : {name:string; count:number}[] = [];
+    for (var index = 0; index < 256; index++) {
+      byteCounts[index] = {
+        name: '' + index,
+        count: 0,
+      };
+    }
+
+    if (bytes.length > 0) {
+      bytes.forEach((current : any, index : any) => {
+        byteCounts[current].count = byteCounts[current].count + 1;
+      });
+    }
 
     return (
         <div style={containerStyle}>
-          <div style={sideBySideStyle}>
+          <div style={leftStyle}>
             <Grid
               columnCount={2}
               columnWidth={80}
@@ -36,8 +66,13 @@ export default function ViewBytes({ bytes }: any) {
               cellRenderer={cellRenderer}
               />
           </div>
-          <div style={sideBySideStyle}>
-            
+          <div style={rightStyle}>
+              <Chart data={byteCounts}>
+                <Title text="Counts of each byte value" />
+                <ArgumentAxis showTicks={false} labelComponent={Label} />
+                <ValueAxis />
+                <SplineSeries valueField="count" argumentField="name" />
+              </Chart>
           </div>
         </div>
     );
