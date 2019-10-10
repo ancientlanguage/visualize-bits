@@ -10,7 +10,7 @@ export default function ViewBytes({ bytes }: any) {
     return (
         <div>
           <FixedSizeList
-            height={800}
+            height={400}
             itemCount={bytes.length}
             itemSize={22}
             width={300}
