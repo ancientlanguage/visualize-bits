@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from 'react-virtualized';
-import { Chart, SplineSeries, ArgumentAxis, ValueAxis, Title } from "@devexpress/dx-react-chart-material-ui";
+import { Chart, BarSeries, ArgumentAxis, ValueAxis, Title } from "@devexpress/dx-react-chart-material-ui";
 
 function Label(props : any) {
   const { text } = props;
@@ -71,7 +71,7 @@ export default function ViewBytes({ bytes }: any) {
                 <Title text="Counts of each byte value" />
                 <ArgumentAxis showTicks={false} labelComponent={Label} />
                 <ValueAxis />
-                <SplineSeries valueField="count" argumentField="name" />
+                <BarSeries valueField="count" argumentField="name" />
               </Chart>
           </div>
         </div>
